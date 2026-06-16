@@ -1,877 +1,856 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Taxi Fantom</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-:root{
-    --bg:#050816;
-    --neon:#00bfff;
-    --yellow:#ffe600;
-    --neon-soft:#33ccff;
-    --text:#eaf7ff;
-    --glass:rgba(255,255,255,0.06);
-    --border:rgba(0,191,255,0.35);
-}
-
-body{
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Rubik', sans-serif;
-    overflow-x:hidden;
-    min-height:100vh;
-    position:relative;
-}
-
-body::before{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:
-    linear-gradient(rgba(0,191,255,0.07) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,191,255,0.07) 1px, transparent 1px);
-    background-size:60px 60px;
-    animation:gridMove 12s linear infinite;
-    z-index:-3;
-}
-
-body::after{
-    content:'';
-    position:fixed;
-    inset:0;
-    background:
-    radial-gradient(circle at top, rgba(0,191,255,0.15), transparent 40%),
-    radial-gradient(circle at bottom, rgba(0,191,255,0.08), transparent 30%);
-    z-index:-2;
-}
-
-@keyframes gridMove{
-    0%{
-        transform:translateY(0px);
-    }
-    100%{
-        transform:translateY(60px);
-    }
-}
-
-.particles{
-    position:fixed;
-    inset:0;
-    overflow:hidden;
-    z-index:-1;
-}
-
-.particles span{
-    position:absolute;
-    width:4px;
-    height:4px;
-    background:var(--neon);
-    border-radius:50%;
-    box-shadow:0 0 15px var(--neon);
-    animation:float 10s linear infinite;
-    opacity:0.7;
-}
-
-@keyframes float{
-    0%{
-        transform:translateY(100vh) scale(0);
-        opacity:0;
-    }
-    30%{
-        opacity:1;
-    }
-    100%{
-        transform:translateY(-10vh) scale(1);
-        opacity:0;
-    }
-}
-
-.taxi-road{
-    position:fixed;
-    left:0;
-    bottom:0;
-    width:100%;
-    height:8px;
-    background:linear-gradient(
-        90deg,
-        transparent,
-        var(--yellow),
-        transparent
-    );
-    box-shadow:0 0 25px var(--yellow);
-    animation:roadMove 2s linear infinite;
-    z-index:5;
-}
-
-@keyframes roadMove{
-    0%{
-        background-position:0 0;
-    }
-    100%{
-        background-position:300px 0;
-    }
-}
-
-.container{
-    width:100%;
-    max-width:1600px;
-    margin:auto;
-    padding:40px 20px;
-}
-
-.hero-layout{
-    display:grid;
-    grid-template-columns:260px 1fr 260px;
-    gap:30px;
-    align-items:center;
-    min-height:78vh;
-}
-
-.glass{
-    background:var(--glass);
-    backdrop-filter:blur(18px);
-    border:1px solid var(--border);
-    box-shadow:
-    0 0 25px rgba(0,191,255,0.18),
-    inset 0 0 15px rgba(255,255,255,0.03);
-}
-
-.side-banner{
-    height:620px;
-    border-radius:26px;
-    position:relative;
-    overflow:hidden;
-    transition:0.4s ease;
-    cursor:pointer;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.side-banner:hover{
-    transform:translateY(-8px) scale(1.02);
-    box-shadow:
-    0 0 35px rgba(0,191,255,0.55),
-    0 0 80px rgba(0,191,255,0.25);
-}
-
-.side-banner::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    border-radius:26px;
-    padding:2px;
-    background:linear-gradient(
-        180deg,
-        rgba(0,191,255,0.9),
-        transparent,
-        rgba(0,191,255,0.9)
-    );
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-            mask-composite:exclude;
-}
-
-.banner-placeholder{
-    text-align:center;
-    opacity:0.8;
-}
-
-.banner-placeholder h3{
-    font-size:22px;
-    margin-bottom:10px;
-    color:var(--yellow);
-    text-shadow:0 0 15px var(--yellow);
-}
-
-.banner-placeholder p{
-    font-size:13px;
-    letter-spacing:2px;
-}
-
-.hero{
-    position:relative;
-    min-height:620px;
-    border-radius:36px;
-    padding:40px;
-    overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-}
-
-.hero::before{
-    content:'';
-    position:absolute;
-    width:700px;
-    height:700px;
-    background:radial-gradient(circle, rgba(0,191,255,0.22), transparent 70%);
-    animation:pulse 5s infinite ease-in-out;
-}
-
-.hero::after{
-    content:'';
-    position:absolute;
-    inset:0;
-    background:
-    repeating-linear-gradient(
-        90deg,
-        transparent 0px,
-        transparent 120px,
-        rgba(255,230,0,0.08) 120px,
-        rgba(255,230,0,0.08) 130px
-    );
-    pointer-events:none;
-}
-
-@keyframes pulse{
-    0%,100%{
-        transform:scale(1);
-        opacity:0.7;
-    }
-    50%{
-        transform:scale(1.1);
-        opacity:1;
-    }
-}
-
-.hero-content{
-    position:relative;
-    z-index:2;
-    text-align:center;
-    animation:fadeUp 1.2s ease;
-}
-
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.taxi-icon{
-    font-size:58px;
-    margin-bottom:20px;
-    color:var(--yellow);
-    text-shadow:
-    0 0 15px var(--yellow),
-    0 0 40px var(--yellow);
-    animation:taxiPulse 2s infinite ease-in-out;
-}
-
-@keyframes taxiPulse{
-    0%,100%{
-        transform:translateY(0px);
-    }
-    50%{
-        transform:translateY(-6px);
-    }
-}
-
-.logo-placeholder{
-    margin-bottom:25px;
-    opacity:0.75;
-    font-size:14px;
-    letter-spacing:4px;
-}
-
-.main-title{
-    font-size:clamp(60px, 9vw, 150px);
-    font-weight:900;
-    letter-spacing:10px;
-    font-family:'Orbitron', sans-serif;
-    color:white;
-    text-shadow:
-    0 0 10px var(--neon),
-    0 0 25px var(--neon),
-    0 0 50px var(--neon),
-    0 0 120px rgba(0,191,255,0.8);
-    animation:flicker 4s infinite;
-}
-
-.taxi-line{
-    width:260px;
-    height:8px;
-    margin:28px auto;
-    border-radius:20px;
-    background:repeating-linear-gradient(
-        90deg,
-        var(--yellow) 0px,
-        var(--yellow) 30px,
-        #111 30px,
-        #111 60px
-    );
-    box-shadow:0 0 25px rgba(255,230,0,0.6);
-}
-
-@keyframes flicker{
-    0%,18%,22%,25%,53%,57%,100%{
-        opacity:1;
-    }
-    20%,24%,55%{
-        opacity:0.7;
-    }
-}
-
-.subtitle{
-    margin-top:25px;
-    font-size:15px;
-    color:#b9dfff;
-    letter-spacing:4px;
-    opacity:0.85;
-}
-
-.hero-buttons{
-    margin-top:40px;
-    display:flex;
-    gap:18px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.neon-btn{
-    padding:16px 34px;
-    border-radius:18px;
-    border:1px solid rgba(0,191,255,0.5);
-    background:rgba(0,191,255,0.08);
-    color:white;
-    text-decoration:none;
-    font-size:14px;
-    transition:0.35s ease;
-    box-shadow:0 0 20px rgba(0,191,255,0.15);
-}
-
-.neon-btn:hover{
-    transform:translateY(-4px) scale(1.03);
-    background:rgba(0,191,255,0.16);
-    box-shadow:
-    0 0 20px rgba(0,191,255,0.5),
-    0 0 50px rgba(0,191,255,0.3);
-}
-
-.bottom-section{
-    margin-top:60px;
-}
-
-.bottom-grid{
-    display:grid;
-    grid-template-columns:repeat(5, 1fr);
-    gap:20px;
-}
-
-.donate-card{
-    min-height:210px;
-    border-radius:24px;
-    position:relative;
-    overflow:hidden;
-    transition:0.4s ease;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-decoration:none;
-    color:white;
-    padding:20px;
-}
-
-.donate-card:hover{
-    transform:translateY(-10px) scale(1.03);
-    box-shadow:
-    0 0 35px rgba(0,191,255,0.5),
-    0 0 80px rgba(0,191,255,0.2);
-}
-
-.donate-card::before{
-    content:'';
-    position:absolute;
-    inset:0;
-    border-radius:24px;
-    padding:2px;
-    background:linear-gradient(
-        135deg,
-        rgba(0,191,255,1),
-        transparent,
-        rgba(255,230,0,1)
-    );
-    -webkit-mask:
-        linear-gradient(#fff 0 0) content-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-            mask-composite:exclude;
-}
-
-.card-content{
-    position:relative;
-    z-index:2;
-    text-align:center;
-}
-
-.card-title{
-    font-size:18px;
-    margin-bottom:12px;
-    color:var(--yellow);
-    text-shadow:0 0 15px var(--yellow);
-}
-
-.card-text{
-    font-size:12px;
-    opacity:0.7;
-    letter-spacing:2px;
-}
-
-.qr-box{
-    width:120px;
-    height:120px;
-    margin:auto;
-    border-radius:18px;
-    border:2px solid rgba(255,230,0,0.5);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:14px;
-    box-shadow:
-    0 0 25px rgba(255,230,0,0.35),
-    inset 0 0 20px rgba(255,230,0,0.12);
-}
-
-.qr-box span{
-    font-size:12px;
-    opacity:0.7;
-}
-
-@media(max-width:1200px){
-
-    .hero-layout{
-        grid-template-columns:1fr;
-    }
-
-    .side-banner{
-        height:220px;
-    }
-
-    .bottom-grid{
-        grid-template-columns:repeat(2,1fr);
-    }
-
-}
-
-@media(max-width:700px){
-
-    .container{
-        padding:20px 14px;
-    }
-
-    .hero{
-        min-height:500px;
-        padding:30px 20px;
-    }
-
-    .main-title{
-        letter-spacing:4px;
-    }
-
-    .bottom-grid{
-        grid-template-columns:1fr;
-    }
-
-    .hero-buttons{
-        flex-direction:column;
-    }
-
-}
-#streamStatus{
-    position:fixed;
-    top:20px;
-    right:20px;
-
-    z-index:999999;
-
-    padding:12px 20px;
-
-    border-radius:16px;
-
-    font-size:13px;
-    font-weight:700;
-    letter-spacing:2px;
-
-    backdrop-filter:blur(15px);
-
-    transition:.3s;
-}
-
-#streamStatus.live{
-    background:rgba(255,0,0,.15);
-    border:1px solid rgba(255,0,0,.6);
-
-    color:#ff5c5c;
-
-    animation:livePulse 1.5s infinite;
-
-    box-shadow:
-        0 0 20px rgba(255,0,0,.5),
-        0 0 60px rgba(255,0,0,.25);
-}
-
-#streamStatus.offline{
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.15);
-    color:#999;
-}
-
-@keyframes livePulse{
-    0%,100%{
-        box-shadow:
-        0 0 20px rgba(255,0,0,.5),
-        0 0 60px rgba(255,0,0,.25);
-    }
-
-    50%{
-        box-shadow:
-        0 0 35px rgba(255,0,0,.8),
-        0 0 90px rgba(255,0,0,.5);
-    }
-}
-
-#livePlayer{
-    position:fixed;
-
-    right:20px;
-    bottom:20px;
-
-    width:380px;
-    height:250px;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    z-index:999999;
-
-    backdrop-filter:blur(20px);
-
-    background:rgba(5,8,22,.95);
-
-    border:1px solid rgba(0,191,255,.4);
-
-    box-shadow:
-        0 0 25px rgba(0,191,255,.3),
-        0 0 70px rgba(0,191,255,.15);
-
-    animation:playerAppear .5s ease;
-}
-
-@keyframes playerAppear{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-.liveHeader{
-    height:42px;
-
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-
-    padding:0 15px;
-
-    background:rgba(255,0,0,.12);
-
-    color:#ff5c5c;
-
-    font-size:12px;
-    font-weight:700;
-}
-
-#livePlayer iframe{
-    width:100%;
-    height:calc(100% - 42px);
-    border:none;
-}
-
-#minimizePlayer{
-    background:none;
-    border:none;
-
-    color:white;
-
-    font-size:20px;
-
-    cursor:pointer;
-}
-
-#livePlayer.collapsed{
-    height:42px;
-}
-
-#livePlayer.hidden{
-    display:none;
-}
-
-@media(max-width:768px){
-
-    #livePlayer{
-        width:95%;
-        right:2.5%;
-        bottom:10px;
-        height:220px;
-    }
-
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taxi Fantom</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rubik:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #050816;
+            --neon: #00bfff;
+            --yellow: #ffe600;
+            --neon-soft: #33ccff;
+            --text: #eaf7ff;
+            --glass: rgba(255, 255, 255, 0.06);
+            --border: rgba(0, 191, 255, 0.35);
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Rubik', sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 191, 255, 0.07) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 191, 255, 0.07) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridMove 12s linear infinite;
+            z-index: -3;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background:
+                radial-gradient(circle at top, rgba(0, 191, 255, 0.15), transparent 40%),
+                radial-gradient(circle at bottom, rgba(0, 191, 255, 0.08), transparent 30%);
+            z-index: -2;
+        }
+
+        @keyframes gridMove {
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(60px);
+            }
+        }
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
+        .particles span {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--neon);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--neon);
+            animation: float 10s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .taxi-road {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+            box-shadow: 0 0 25px var(--yellow);
+            animation: roadMove 2s linear infinite;
+            z-index: 5;
+        }
+
+        @keyframes roadMove {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 300px 0;
+            }
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+            margin: auto;
+            padding: 40px 20px;
+        }
+
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(18px);
+            border: 1px solid var(--border);
+            box-shadow: 0 0 25px rgba(0, 191, 255, 0.18), inset 0 0 15px rgba(255, 255, 255, 0.03);
+        }
+
+        .hero {
+            width: calc(100% - 200px);
+            margin: 0 auto;
+            position: relative;
+            border-radius: 36px;
+            padding: 45px 25px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(0, 191, 255, 0.22), transparent 70%);
+            animation: pulse 5s infinite ease-in-out;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(90deg,
+                    transparent 0px, transparent 120px,
+                    rgba(255, 230, 0, 0.08) 120px, rgba(255, 230, 0, 0.08) 130px);
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            animation: fadeUp 1.2s ease;
+        }
+
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .taxi-icon {
+            font-size: 34px;
+            margin-bottom: 10px;
+            color: var(--yellow);
+            text-shadow: 0 0 15px var(--yellow), 0 0 40px var(--yellow);
+            animation: taxiPulse 2s infinite ease-in-out;
+        }
+
+        @keyframes taxiPulse {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+        }
+
+        .logo-placeholder {
+            margin-bottom: 25px;
+            opacity: 0.75;
+            font-size: 14px;
+            letter-spacing: 4px;
+        }
+
+        .main-title {
+            font-size: clamp(42px, 5vw, 75px);
+            font-weight: 900;
+            letter-spacing: 10px;
+            font-family: 'Orbitron', sans-serif;
+            color: white;
+            text-shadow:
+                0 0 10px var(--neon), 0 0 25px var(--neon),
+                0 0 50px var(--neon), 0 0 120px rgba(0, 191, 255, 0.8);
+            animation: flicker 4s infinite;
+        }
+
+        .taxi-line {
+            width: 180px;
+            height: 6px;
+            margin: 16px auto;
+            border-radius: 20px;
+            background: repeating-linear-gradient(90deg,
+                    var(--yellow) 0px, var(--yellow) 30px,
+                    #111 30px, #111 60px);
+            box-shadow: 0 0 25px rgba(255, 230, 0, 0.6);
+        }
+
+        @keyframes flicker {
+
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                opacity: 0.7;
+            }
+        }
+
+        .hero-buttons {
+            margin-top: 40px;
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .neon-btn {
+            padding: 16px 34px;
+            border-radius: 18px;
+            border: 1px solid rgba(0, 191, 255, 0.5);
+            background: rgba(0, 191, 255, 0.08);
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            font-family: 'Rubik', sans-serif;
+            transition: 0.35s ease;
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.15);
+            cursor: pointer;
+        }
+
+        .neon-btn:hover {
+            transform: translateY(-4px) scale(1.03);
+            background: rgba(0, 191, 255, 0.16);
+            box-shadow: 0 0 20px rgba(0, 191, 255, 0.5), 0 0 50px rgba(0, 191, 255, 0.3);
+        }
+
+        /* ——— DONATE CARDS ——— */
+        .bottom-section {
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
+
+        .bottom-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+        }
+
+        .donate-card {
+            min-height: 300px;
+            border-radius: 24px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: white;
+            padding: 30px 25px;
+        }
+
+        .donate-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 35px rgba(0, 191, 255, 0.5), 0 0 80px rgba(0, 191, 255, 0.2);
+        }
+
+        .donate-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 2px;
+            background: linear-gradient(135deg,
+                    rgba(0, 191, 255, 1),
+                    transparent,
+                    rgba(255, 230, 0, 1));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        /* Image slot — положи файл рядом с HTML: donationalerts.png / ihaq.png / donatepay.png / trula.png */
+        .service-logo {
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            margin: 0 auto 18px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            border-radius: 18px;
+
+            transform: translateX(5px);
+        }
+
+        /* Показываем placeholder-текст если картинка не загрузилась */
+        .service-logo .img-fallback {
+            font-size: 11px;
+            letter-spacing: 1px;
+            opacity: 0.4;
+            text-align: center;
+            padding: 4px;
+            line-height: 1.4;
+            display: none;
+        }
+
+        .service-logo img.broken+.img-fallback {
+            display: block;
+        }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
+        }
+
+        .card-text {
+            font-size: 12px;
+            letter-spacing: 3px;
+            opacity: 0.55;
+        }
+
+        /* ——— STREAM STATUS ——— */
+        #streamStatus {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999999;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            backdrop-filter: blur(15px);
+            transition: .3s;
+        }
+
+        #streamStatus.live {
+            background: rgba(145, 70, 255, .18);
+            border: 1px solid rgba(145, 70, 255, .7);
+            color: #bf94ff;
+            animation: livePulse 1.5s infinite;
+            box-shadow: 0 0 20px rgba(145, 70, 255, .5), 0 0 60px rgba(145, 70, 255, .25);
+        }
+
+        #streamStatus.offline {
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid rgba(255, 255, 255, .15);
+            color: #999;
+        }
+
+        @keyframes livePulse {
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(145, 70, 255, .5), 0 0 60px rgba(145, 70, 255, .25);
+            }
+
+            50% {
+                box-shadow: 0 0 35px rgba(145, 70, 255, .8), 0 0 90px rgba(145, 70, 255, .5);
+            }
+        }
+
+        /* ——— FLOATING MINI-PLAYER ——— */
+        #livePlayer {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            width: 400px;
+            height: 265px;
+            border-radius: 20px;
+            overflow: hidden;
+            z-index: 999999;
+            background: rgba(5, 8, 22, .97);
+            border: 1px solid rgba(145, 70, 255, .5);
+            box-shadow: 0 0 25px rgba(145, 70, 255, .35), 0 0 70px rgba(145, 70, 255, .15);
+            animation: playerAppear .5s ease;
+            transition: height 0.3s ease;
+        }
+
+        @keyframes playerAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .liveHeader {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+            background: rgba(145, 70, 255, .15);
+            color: #bf94ff;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            user-select: none;
+        }
+
+        .liveHeaderLeft {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .liveDot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #bf94ff;
+            animation: livePulseDot 1.2s infinite;
+            flex-shrink: 0;
+        }
+
+        @keyframes livePulseDot {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
+        }
+
+        #livePlayer iframe {
+            width: 100%;
+            height: calc(100% - 44px);
+            border: none;
+            display: block;
+        }
+
+        #minimizePlayer {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        #minimizePlayer:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #livePlayer.collapsed {
+            height: 44px;
+        }
+
+        #livePlayer.hidden {
+            display: none;
+        }
+
+        /* ——— STREAM MODAL ——— */
+        #streamModal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999999;
+            background: rgba(5, 8, 22, 0.92);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        #streamModal.hidden {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-inner {
+            width: 90%;
+            max-width: 900px;
+            border-radius: 24px;
+            overflow: hidden;
+            border: 1px solid rgba(145, 70, 255, .5);
+            box-shadow: 0 0 60px rgba(145, 70, 255, .3);
+            background: rgba(5, 8, 22, 0.98);
+        }
+
+        .modal-header {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px;
+            background: rgba(145, 70, 255, .12);
+            border-bottom: 1px solid rgba(145, 70, 255, .25);
+            color: #bf94ff;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 2px;
+        }
+
+        .modal-close {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .modal-inner iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+            display: block;
+        }
+
+        /* ——— RESPONSIVE ——— */
+        @media(max-width:1200px) {
+            .bottom-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                width: 100%;
+            }
+        }
+
+        @media(max-width:700px) {
+            .container {
+                padding: 20px 14px;
+            }
+
+            .hero {
+                padding: 30px 20px;
+            }
+
+            .main-title {
+                letter-spacing: 4px;
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            #livePlayer {
+                width: 95%;
+                right: 2.5%;
+                bottom: 10px;
+                height: 230px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-<div id="streamStatus" class="offline">
-    ⚫ OFFLINE
-</div>
 
-<div id="livePlayer">
+    <div id="streamStatus" class="offline">⚫ OFFLINE</div>
 
-    <div class="liveHeader">
-        <span>🔴 В ЭФИРЕ</span>
-        <button id="minimizePlayer">−</button>
+    <!-- Floating mini-player (виден только когда STREAM_IS_LIVE = true) -->
+    <div id="livePlayer" class="hidden">
+        <div class="liveHeader">
+            <div class="liveHeaderLeft">
+                <div class="liveDot"></div>
+                <span>В ЭФИРЕ — TAXI FANTOM</span>
+            </div>
+            <button id="minimizePlayer">−</button>
+        </div>
+        <iframe id="liveIframe" src="" allowfullscreen></iframe>
     </div>
 
-    <iframe
-        src="https://www.youtube.com/embed/jfKfPfyJRdk"
-        allowfullscreen>
-    </iframe>
-
-</div> 
-<div class="taxi-road"></div>
-
-<div class="particles">
-    <span style="left:5%; animation-delay:0s;"></span>
-    <span style="left:15%; animation-delay:2s;"></span>
-    <span style="left:30%; animation-delay:5s;"></span>
-    <span style="left:45%; animation-delay:1s;"></span>
-    <span style="left:60%; animation-delay:4s;"></span>
-    <span style="left:75%; animation-delay:6s;"></span>
-    <span style="left:90%; animation-delay:3s;"></span>
-</div>
-
-<div class="container">
-
-    <section class="hero-layout">
-
-        <div class="side-banner glass">
-            <div class="banner-placeholder">
-                <h3>🚕 РЕКЛАМА</h3>
-                <p>МЕСТО ДЛЯ БАННЕРА</p>
+    <!-- Модальный плеер -->
+    <div id="streamModal" class="hidden">
+        <div class="modal-inner">
+            <div class="modal-header">
+                <span>🟣 СТРИМ — TAXI FANTOM</span>
+                <button class="modal-close" id="closeModal">✕</button>
             </div>
+            <iframe id="modalIframe" src="" allowfullscreen></iframe>
         </div>
+    </div>
 
-        <div class="hero glass">
+    <div class="taxi-road"></div>
 
-            <div class="hero-content">
+    <div class="particles">
+        <span style="left:5%; animation-delay:0s;"></span>
+        <span style="left:15%; animation-delay:2s;"></span>
+        <span style="left:30%; animation-delay:5s;"></span>
+        <span style="left:45%; animation-delay:1s;"></span>
+        <span style="left:60%; animation-delay:4s;"></span>
+        <span style="left:75%; animation-delay:6s;"></span>
+        <span style="left:90%; animation-delay:3s;"></span>
+    </div>
 
-                <div class="taxi-icon">🚕</div>
+    <div class="container">
 
-                <div class="logo-placeholder">
-                    МЕСТО ДЛЯ ЛОГОТИПА
+        <section>
+            <div class="hero glass">
+                <div class="hero-content">
+                    <div class="taxi-icon">🚕</div>
+                    <!-- <div class="logo-placeholder">МЕСТО ДЛЯ ЛОГОТИПА</div> -->
+                    <h1 class="main-title">TAXI FANTOM</h1>
+                    <div class="taxi-line"></div>
+                    <div class="hero-buttons">
+                        <button class="neon-btn" id="watchStreamBtn">▶ СМОТРЕТЬ СТРИМ</button>
+                        <a href="https://t.me/taxi_fantom" class="neon-btn">ТЕЛЕГРАМ</a>
+                    </div>
                 </div>
-
-                <h1 class="main-title">
-                    TAXI FANTOM
-                </h1>
-
-                <div class="taxi-line"></div>
-
-                <div class="subtitle">
-                    
-                </div>
-
-                <div class="hero-buttons">
-                    <a href="#" class="neon-btn">
-                        СМОТРЕТЬ СТРИМ
-                    </a>
-
-                    <a href="#" class="neon-btn">
-                        СОЦСЕТИ
-                    </a>
-                </div>
-
             </div>
+        </section>
 
-        </div>
+        <section class="bottom-section">
+            <div class="bottom-grid">
 
-        <div class="side-banner glass">
-            <div class="banner-placeholder">
-                <h3>🚕 РЕКЛАМА</h3>
-                <p>МЕСТО ДЛЯ БАННЕРА</p>
-            </div>
-        </div>
+                <!--
+                    КАК ДОБАВИТЬ ЛОГОТИПЫ:
+                    Положи файлы картинок (PNG/JPG/SVG/WEBP) в ту же папку что и этот HTML файл.
+                    Имена файлов: donationalerts.png  ihaq.png  donatepay.png  trula.png
+                    Картинки подхватятся автоматически.
+                    Рекомендуемый размер: 200×200px или квадрат любого размера.
+                -->
 
-    </section>
-
-    <section class="bottom-section">
-
-        <div class="bottom-grid">
-
-            <a href="https://example.com" class="donate-card glass">
-                <div class="card-content">
-                    <div class="card-title">
-                        ДОНАТ #1
+                <a href="https://www.donationalerts.com/r/taxi_fantom" target="_blank" class="donate-card glass">
+                    <div class="card-content">
+                        <div class="service-logo">
+                            <img src="donationalerts.png" alt="DonationAlerts"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
+                        </div>
+                        <div class="card-title">DonationAlerts</div>
+                        <div class="card-text">ЗАДОНАТИТЬ</div>
                     </div>
+                </a>
 
-                    <div class="card-text">
-                        ВСТАВЬ ССЫЛКУ
+                <a href="https://ihaqdonate.com/d/TAXI_FANTOM" target="_blank" class="donate-card glass">
+                    <div class="card-content">
+                        <div class="service-logo">
+                            <img src="ihaq.png" alt="IHaQ"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
+                        </div>
+                        <div class="card-title">IHaQ</div>
+                        <div class="card-text">ЗАДОНАТИТЬ</div>
                     </div>
-                </div>
-            </a>
+                </a>
 
-            <a href="https://example.com" class="donate-card glass">
-                <div class="card-content">
-                    <div class="card-title">
-                        ДОНАТ #2
+                <a href="https://new.donatepay.ru/@1506201" target="_blank" class="donate-card glass">
+                    <div class="card-content">
+                        <div class="service-logo">
+                            <img src="donatepay.png" alt="DonatePay"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
+                        </div>
+                        <div class="card-title">DonatePay</div>
+                        <div class="card-text">ЗАДОНАТИТЬ</div>
                     </div>
+                </a>
 
-                    <div class="card-text">
-                        ВСТАВЬ ССЫЛКУ
+                <a href="https://trula.io/dp/twitch/taxi_fantom" target="_blank" class="donate-card glass">
+                    <div class="card-content">
+                        <div class="service-logo">
+                            <img src="trula.png" alt="Trula"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
+                        </div>
+                        <div class="card-title">Trula</div>
+                        <div class="card-text">ЗАДОНАТИТЬ</div>
                     </div>
-                </div>
-            </a>
-
-            <a href="https://example.com" class="donate-card glass">
-                <div class="card-content">
-                    <div class="card-title">
-                        ДОНАТ #3
-                    </div>
-
-                    <div class="card-text">
-                        ВСТАВЬ ССЫЛКУ
-                    </div>
-                </div>
-            </a>
-
-            <a href="https://example.com" class="donate-card glass">
-                <div class="card-content">
-                    <div class="card-title">
-                        ДОНАТ #4
-                    </div>
-
-                    <div class="card-text">
-                        ВСТАВЬ ССЫЛКУ
-                    </div>
-                </div>
-            </a>
-
-            <div class="donate-card glass">
-
-                <div class="card-content">
-
-                    <div class="qr-box">
-                        <span>QR КОД</span>
-                    </div>
-
-                    <div class="card-title">
-                        СКАНИРУЙ
-                    </div>
-
-                    <div class="card-text">
-                        ДОНАТЫ / СОЦСЕТИ
-                    </div>
-
-                </div>
+                </a>
 
             </div>
+        </section>
 
-        </div>
+    </div>
 
-    </section>
+    <script>
+        /* ═══════════════════════════════════════════
+           НАСТРОЙКИ — меняй только здесь
+        ═══════════════════════════════════════════ */
+        const STREAM_IS_LIVE = false;           // true = стрим идёт
+        const TWITCH_CHANNEL = 'yan666taxi';   // твой канал на Twitch
+        /* ════════════════════════════════════════ */
 
-</div>
+        const TWITCH_PARENT = window.location.hostname || 'localhost';
+        const TWITCH_EMBED = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${TWITCH_PARENT}&autoplay=true&muted=true`;
+        const TWITCH_MODAL = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${TWITCH_PARENT}&autoplay=true`;
 
-<script>
+        /* Stream status badge */
+        const statusEl = document.getElementById('streamStatus');
+        const playerEl = document.getElementById('livePlayer');
 
-const cards = document.querySelectorAll('.donate-card, .side-banner');
+        if (STREAM_IS_LIVE) {
+            statusEl.className = 'live';
+            statusEl.innerHTML = '🟣 LIVE NOW';
+            document.getElementById('liveIframe').src = TWITCH_EMBED;
+            playerEl.classList.remove('hidden');
+        } else {
+            statusEl.className = 'offline';
+            statusEl.innerHTML = '⚫ OFFLINE';
+        }
 
-cards.forEach(card => {
+        /* Minimize floating player */
+        document.getElementById('minimizePlayer').addEventListener('click', e => {
+            e.stopPropagation();
+            playerEl.classList.toggle('collapsed');
+            e.currentTarget.textContent = playerEl.classList.contains('collapsed') ? '+' : '−';
+        });
 
-    card.addEventListener('mousemove', e => {
+        /* Modal player */
+        const modal = document.getElementById('streamModal');
+        const modalFrame = document.getElementById('modalIframe');
 
-        const rect = card.getBoundingClientRect();
+        document.getElementById('watchStreamBtn').addEventListener('click', () => {
+            modalFrame.src = TWITCH_MODAL;
+            modal.classList.remove('hidden');
+        });
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
+        function closeStreamModal() {
+            modal.classList.add('hidden');
+            modalFrame.src = '';
+        }
 
-        card.style.background = `
-        radial-gradient(
-            circle at ${x}px ${y}px,
-            rgba(0,191,255,0.18),
-            rgba(255,255,255,0.03)
-        )
-        `;
-    });
+        document.getElementById('closeModal').addEventListener('click', closeStreamModal);
+        modal.addEventListener('click', e => { if (e.target === modal) closeStreamModal(); });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeStreamModal(); });
 
-    card.addEventListener('mouseleave', () => {
-        card.style.background = 'rgba(255,255,255,0.06)';
-    });
-
-});
-
-</script>
-<script>
-
-const STREAM_IS_LIVE = false;
-
-const status = document.getElementById("streamStatus");
-const player = document.getElementById("livePlayer");
-const button = document.getElementById("minimizePlayer");
-
-if(STREAM_IS_LIVE)
-{
-    status.classList.remove("offline");
-    status.classList.add("live");
-    status.innerHTML = "🔴 LIVE NOW";
-
-    player.classList.remove("hidden");
-}
-else
-{
-    status.classList.remove("live");
-    status.classList.add("offline");
-    status.innerHTML = "⚫ OFFLINE";
-
-    player.classList.add("hidden");
-}
-
-button.addEventListener("click", () =>
-{
-    player.classList.toggle("collapsed");
-
-    if(player.classList.contains("collapsed"))
-        button.innerHTML = "+";
-    else
-        button.innerHTML = "−";
-});
-
-</script>
+        /* Card cursor glow */
+        document.querySelectorAll('.donate-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const r = card.getBoundingClientRect();
+                card.style.background = `radial-gradient(circle at ${e.clientX - r.left}px ${e.clientY - r.top}px, rgba(0,191,255,0.18), rgba(255,255,255,0.03))`;
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.background = 'rgba(255,255,255,0.06)';
+            });
+        });
+    </script>
 </body>
+
 </html>
