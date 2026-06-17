@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taxi Fantom</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Rubik:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         :root {
             --bg: #050816;
@@ -54,14 +61,26 @@
         }
 
         @keyframes gridMove {
-            0% { transform: translateY(0px); }
-            100% { transform: translateY(60px); }
+            0% {
+                transform: translateY(0px);
+            }
+
+            100% {
+                transform: translateY(60px);
+            }
         }
 
-        .particles { position: fixed; inset: 0; overflow: hidden; z-index: -1; }
+        .particles {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            z-index: -1;
+        }
+
         .particles span {
             position: absolute;
-            width: 4px; height: 4px;
+            width: 4px;
+            height: 4px;
             background: var(--neon);
             border-radius: 50%;
             box-shadow: 0 0 15px var(--neon);
@@ -70,13 +89,27 @@
         }
 
         @keyframes float {
-            0% { transform: translateY(100vh) scale(0); opacity: 0; }
-            30% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1); opacity: 0; }
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+
+            30% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-10vh) scale(1);
+                opacity: 0;
+            }
         }
 
         .taxi-road {
-            position: fixed; left: 0; bottom: 0; width: 100%; height: 8px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 8px;
             background: linear-gradient(90deg, transparent, var(--yellow), transparent);
             box-shadow: 0 0 25px var(--yellow);
             animation: roadMove 2s linear infinite;
@@ -84,12 +117,18 @@
         }
 
         @keyframes roadMove {
-            0% { background-position: 0 0; }
-            100% { background-position: 300px 0; }
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 300px 0;
+            }
         }
 
         .container {
-            width: 100%; max-width: 1400px;
+            width: 100%;
+            max-width: 1400px;
             margin: auto;
             padding: 40px 20px;
         }
@@ -116,7 +155,8 @@
         .hero::before {
             content: '';
             position: absolute;
-            width: 700px; height: 700px;
+            width: 700px;
+            height: 700px;
             background: radial-gradient(circle, rgba(0, 191, 255, 0.22), transparent 70%);
             animation: pulse 5s infinite ease-in-out;
         }
@@ -126,42 +166,69 @@
             position: absolute;
             inset: 0;
             background: repeating-linear-gradient(90deg,
-                transparent 0px, transparent 120px,
-                rgba(255, 230, 0, 0.08) 120px, rgba(255, 230, 0, 0.08) 130px);
+                    transparent 0px, transparent 120px,
+                    rgba(255, 230, 0, 0.08) 120px, rgba(255, 230, 0, 0.08) 130px);
             pointer-events: none;
         }
 
         @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.7; }
-            50% { transform: scale(1.1); opacity: 1; }
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 0.7;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
         }
 
         .hero-content {
-            position: relative; z-index: 2;
+            position: relative;
+            z-index: 2;
             text-align: center;
             animation: fadeUp 1.2s ease;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .taxi-icon {
-            font-size: 34px; margin-bottom: 10px;
+            font-size: 34px;
+            margin-bottom: 10px;
             color: var(--yellow);
             text-shadow: 0 0 15px var(--yellow), 0 0 40px var(--yellow);
             animation: taxiPulse 2s infinite ease-in-out;
         }
 
         @keyframes taxiPulse {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-6px); }
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
         }
 
         .logo-placeholder {
-            margin-bottom: 25px; opacity: 0.75;
-            font-size: 14px; letter-spacing: 4px;
+            margin-bottom: 25px;
+            opacity: 0.75;
+            font-size: 14px;
+            letter-spacing: 4px;
         }
 
         .main-title {
@@ -177,23 +244,39 @@
         }
 
         .taxi-line {
-            width: 180px; height: 6px;
+            width: 180px;
+            height: 6px;
             margin: 16px auto;
             border-radius: 20px;
             background: repeating-linear-gradient(90deg,
-                var(--yellow) 0px, var(--yellow) 30px,
-                #111 30px, #111 60px);
+                    var(--yellow) 0px, var(--yellow) 30px,
+                    #111 30px, #111 60px);
             box-shadow: 0 0 25px rgba(255, 230, 0, 0.6);
         }
 
         @keyframes flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-            20%, 24%, 55% { opacity: 0.7; }
+
+            0%,
+            18%,
+            22%,
+            25%,
+            53%,
+            57%,
+            100% {
+                opacity: 1;
+            }
+
+            20%,
+            24%,
+            55% {
+                opacity: 0.7;
+            }
         }
 
         .hero-buttons {
             margin-top: 40px;
-            display: flex; gap: 18px;
+            display: flex;
+            gap: 18px;
             justify-content: center;
             flex-wrap: wrap;
         }
@@ -205,7 +288,8 @@
             background: rgba(0, 191, 255, 0.08);
             color: white;
             text-decoration: none;
-            font-size: 14px; font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            font-family: 'Rubik', sans-serif;
             transition: 0.35s ease;
             box-shadow: 0 0 20px rgba(0, 191, 255, 0.15);
             cursor: pointer;
@@ -218,7 +302,10 @@
         }
 
         /* ——— DONATE CARDS ——— */
-        .bottom-section { margin-top: 25px; margin-bottom: 20px; }
+        .bottom-section {
+            margin-top: 25px;
+            margin-bottom: 20px;
+        }
 
         .bottom-grid {
             display: grid;
@@ -253,22 +340,24 @@
             border-radius: 24px;
             padding: 2px;
             background: linear-gradient(135deg,
-                rgba(0, 191, 255, 1),
-                transparent,
-                rgba(255, 230, 0, 1));
+                    rgba(0, 191, 255, 1),
+                    transparent,
+                    rgba(255, 230, 0, 1));
             -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
             -webkit-mask-composite: xor;
             mask-composite: exclude;
         }
 
         .card-content {
-            position: relative; z-index: 2;
+            position: relative;
+            z-index: 2;
             text-align: center;
         }
 
         /* Image slot — положи файл рядом с HTML: donationalerts.png / ihaq.png / donatepay.png / trula.png */
         .service-logo {
-            width: 80px; height: 80px;
+            width: 80px;
+            height: 80px;
             border-radius: 20px;
             margin: 0 auto 18px;
             overflow: hidden;
@@ -280,9 +369,12 @@
         }
 
         .service-logo img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             border-radius: 18px;
+
+            transform: translateX(4px);
         }
 
         /* Показываем placeholder-текст если картинка не загрузилась */
@@ -296,23 +388,36 @@
             display: none;
         }
 
-        .service-logo img.broken + .img-fallback { display: block; }
+        .service-logo img.broken+.img-fallback {
+            display: block;
+        }
 
         .card-title {
-            font-size: 20px; font-weight: 700;
-            margin-bottom: 8px; letter-spacing: 1px;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 1px;
         }
 
         .card-text {
-            font-size: 12px; letter-spacing: 3px; opacity: 0.55;
+            font-size: 12px;
+            letter-spacing: 3px;
+            opacity: 0.55;
         }
 
         /* ——— STREAM STATUS ——— */
         #streamStatus {
-            position: fixed; top: 20px; right: 20px; z-index: 999999;
-            padding: 12px 20px; border-radius: 16px;
-            font-size: 13px; font-weight: 700; letter-spacing: 2px;
-            backdrop-filter: blur(15px); transition: .3s;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999999;
+            padding: 12px 20px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            backdrop-filter: blur(15px);
+            transition: .3s;
         }
 
         #streamStatus.live {
@@ -330,15 +435,26 @@
         }
 
         @keyframes livePulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(145, 70, 255, .5), 0 0 60px rgba(145, 70, 255, .25); }
-            50% { box-shadow: 0 0 35px rgba(145, 70, 255, .8), 0 0 90px rgba(145, 70, 255, .5); }
+
+            0%,
+            100% {
+                box-shadow: 0 0 20px rgba(145, 70, 255, .5), 0 0 60px rgba(145, 70, 255, .25);
+            }
+
+            50% {
+                box-shadow: 0 0 35px rgba(145, 70, 255, .8), 0 0 90px rgba(145, 70, 255, .5);
+            }
         }
 
         /* ——— FLOATING MINI-PLAYER ——— */
         #livePlayer {
-            position: fixed; right: 20px; bottom: 20px;
-            width: 400px; height: 265px;
-            border-radius: 20px; overflow: hidden;
+            position: fixed;
+            right: 20px;
+            bottom: 520px;
+            width: 400px;
+            height: 265px;
+            border-radius: 20px;
+            overflow: hidden;
             z-index: 999999;
             background: rgba(5, 8, 22, .97);
             border: 1px solid rgba(145, 70, 255, .5);
@@ -348,68 +464,137 @@
         }
 
         @keyframes playerAppear {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .liveHeader {
             height: 44px;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 15px;
             background: rgba(145, 70, 255, .15);
             color: #bf94ff;
-            font-size: 12px; font-weight: 700; letter-spacing: 1px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1px;
             user-select: none;
         }
 
-        .liveHeaderLeft { display: flex; align-items: center; gap: 8px; }
+        .liveHeaderLeft {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
         .liveDot {
-            width: 8px; height: 8px; border-radius: 50%;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
             background: #bf94ff;
             animation: livePulseDot 1.2s infinite;
             flex-shrink: 0;
         }
 
         @keyframes livePulseDot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.3;
+            }
         }
 
-        #livePlayer iframe { width: 100%; height: calc(100% - 44px); border: none; display: block; }
+        #livePlayer iframe {
+            width: 100%;
+            height: calc(100% - 44px);
+            border: none;
+            display: block;
+        }
 
         #minimizePlayer {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white; font-size: 16px; cursor: pointer;
-            width: 28px; height: 28px; border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             transition: background 0.2s;
         }
 
-        #minimizePlayer:hover { background: rgba(255,255,255,0.2); }
-        #livePlayer.collapsed { height: 44px; }
-        #livePlayer.hidden { display: none; }
+        #minimizePlayer:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        #livePlayer.collapsed {
+            height: 44px;
+        }
+
+        #livePlayer.hidden {
+            display: none;
+        }
 
         /* ——— RESPONSIVE ——— */
         @media(max-width:1200px) {
-            .bottom-grid { grid-template-columns: repeat(2, 1fr); }
-            .hero { width: 100%; }
+            .bottom-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero {
+                width: 100%;
+            }
         }
 
         @media(max-width:700px) {
-            .container { padding: 20px 14px; }
-            .hero { padding: 30px 20px; }
-            .main-title { letter-spacing: 4px; }
-            .bottom-grid { grid-template-columns: 1fr; }
-            .hero-buttons { flex-direction: column; }
-            #livePlayer { width: 95%; right: 2.5%; bottom: 10px; height: 230px; }
+            .container {
+                padding: 20px 14px;
+            }
+
+            .hero {
+                padding: 30px 20px;
+            }
+
+            .main-title {
+                letter-spacing: 4px;
+            }
+
+            .bottom-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            #livePlayer {
+                width: 95%;
+                right: 2.5%;
+                bottom: 10px;
+                height: 230px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <div id="streamStatus" class="offline">⚫ OFFLINE</div>
+    
 
     <!-- Floating mini-player — всегда виден -->
     <div id="livePlayer">
@@ -446,8 +631,9 @@
                     <h1 class="main-title">TAXI FANTOM</h1>
                     <div class="taxi-line"></div>
                     <div class="hero-buttons">
-                        <a href="https://www.twitch.tv/taxi_fantom" target="_blank" class="neon-btn">▶ СМОТРЕТЬ СТРИМ</a>
-                        <a href="#" class="neon-btn">СОЦСЕТИ</a>
+                        <a href="https://www.twitch.tv/taxi_fantom" target="_blank" class="neon-btn">▶ СМОТРЕТЬ
+                            СТРИМ</a>
+                        <a href="https://t.me/taxi_fantom" class="neon-btn">ТЕЛЕГРАМ</a>
                     </div>
                 </div>
             </div>
@@ -467,8 +653,9 @@
                 <a href="https://www.donationalerts.com/" target="_blank" class="donate-card glass">
                     <div class="card-content">
                         <div class="service-logo">
-                            <img src="donationalerts.png" alt="DonationAlerts" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                            <span class="img-fallback" style="display:block">donation<br>alerts.png</span>
+                            <img src="donationalerts.png" alt="DonationAlerts"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
                         </div>
                         <div class="card-title">DonationAlerts</div>
                         <div class="card-text">ЗАДОНАТИТЬ</div>
@@ -478,8 +665,9 @@
                 <a href="https://ihaq.ru/" target="_blank" class="donate-card glass">
                     <div class="card-content">
                         <div class="service-logo">
-                            <img src="ihaq.png" alt="IHaQ" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                            <span class="img-fallback" style="display:block">ihaq.png</span>
+                            <img src="ihaq.png" alt="IHaQ"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
                         </div>
                         <div class="card-title">IHaQ</div>
                         <div class="card-text">ЗАДОНАТИТЬ</div>
@@ -489,8 +677,9 @@
                 <a href="https://donatepay.ru/" target="_blank" class="donate-card glass">
                     <div class="card-content">
                         <div class="service-logo">
-                            <img src="donatepay.png" alt="DonatePay" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                            <span class="img-fallback" style="display:block">donatepay.png</span>
+                            <img src="donatepay.png" alt="DonatePay"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
                         </div>
                         <div class="card-title">DonatePay</div>
                         <div class="card-text">ЗАДОНАТИТЬ</div>
@@ -500,8 +689,9 @@
                 <a href="https://trula.ru/" target="_blank" class="donate-card glass">
                     <div class="card-content">
                         <div class="service-logo">
-                            <img src="trula.png" alt="Trula" onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
-                            <span class="img-fallback" style="display:block">trula.png</span>
+                            <img src="trula.png" alt="Trula"
+                                onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+                            <span class="img-fallback" style="display:block"></span>
                         </div>
                         <div class="card-title">Trula</div>
                         <div class="card-text">ЗАДОНАТИТЬ</div>
@@ -518,11 +708,11 @@
            НАСТРОЙКИ — меняй только здесь
         ═══════════════════════════════════ */
         const STREAM_IS_LIVE = false;         // true = стрим идёт
-        const TWITCH_CHANNEL = 'taxi_fantom'; // канал Twitch
+        const TWITCH_CHANNEL = 'kulaich'; // канал Twitch
         /* ═════════════════════════════════ */
 
         const TWITCH_PARENT = window.location.hostname || 'localhost';
-        const TWITCH_EMBED  = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${TWITCH_PARENT}&autoplay=true&muted=true`;
+        const TWITCH_EMBED = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${TWITCH_PARENT}&autoplay=true&muted=true`;
 
         /* Stream status badge */
         const statusEl = document.getElementById('streamStatus');
@@ -559,4 +749,5 @@
         });
     </script>
 </body>
+
 </html>
