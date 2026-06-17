@@ -714,18 +714,19 @@
         const TWITCH_PARENT = window.location.hostname || 'localhost';
         const TWITCH_EMBED = `https://player.twitch.tv/?channel=${TWITCH_CHANNEL}&parent=${TWITCH_PARENT}&autoplay=true&muted=true`;
 
-        /* Stream status badge */
-        const statusEl = document.getElementById('streamStatus');
-        if (STREAM_IS_LIVE) {
-            statusEl.className = 'live';
-            statusEl.innerHTML = '🟣 LIVE NOW';
-            document.getElementById('playerLabel').textContent = 'В ЭФИРЕ — TAXI FANTOM';
-        } else {
-            statusEl.className = 'offline';
-            statusEl.innerHTML = '⚫ OFFLINE';
-            document.getElementById('playerLabel').textContent = 'TAXI FANTOM';
-        }
-
+        // /* Stream status badge */
+        // const statusEl = document.getElementById('streamStatus');
+        // if (STREAM_IS_LIVE) {
+        //     statusEl.className = 'live';
+        //     statusEl.innerHTML = '🟣 LIVE NOW';
+        //     document.getElementById('playerLabel').textContent = 'В ЭФИРЕ — TAXI FANTOM';
+        // } else {
+        //     statusEl.className = 'offline';
+        //     statusEl.innerHTML = '⚫ OFFLINE';
+        //     document.getElementById('playerLabel').textContent = 'TAXI FANTOM';
+        // }
+        document.getElementById('playerLabel').textContent =
+            STREAM_IS_LIVE ? 'В ЭФИРЕ — TAXI FANTOM' : 'TAXI FANTOM';
         /* Всегда загружаем плеер */
         document.getElementById('liveIframe').src = TWITCH_EMBED;
 
